@@ -1,0 +1,24 @@
+digraph dependencies {
+	N0[label="pistoncore-glutin_window"];
+	N1[label="gl"];
+	N2[label="glutin"];
+	N3[label="pistoncore-input"];
+	N4[label="pistoncore-window"];
+	N5[label="shader_version"];
+	N7[label="bitflags"];
+	N9[label="cgl"];
+	N10[label="gleam"];
+	N11[label="libc"];
+	N0 -> N1[label=""];
+	N0 -> N2[label=""];
+	N0 -> N3[label=""];
+	N0 -> N4[label=""];
+	N0 -> N5[label=""];
+	N2 -> N9[label=""];
+	N2 -> N11[label=""];
+	N3 -> N7[label=""];
+	N4 -> N3[label=""];
+	N4 -> N5[label=""];
+	N9 -> N10[label=""];
+	N9 -> N11[label=""];
+}

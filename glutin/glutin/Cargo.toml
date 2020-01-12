@@ -1,0 +1,64 @@
+[package]
+name = "glutin"
+version = "0.21.0"
+authors = ["The glutin contributors", "Pierre Krieger <pierre.krieger1708@gmail.com>"]
+description = "Cross-platform OpenGL context provider."
+keywords = ["windowing", "opengl"]
+license = "Apache-2.0"
+readme = "../README.md"
+repository = "https://github.com/tomaka/glutin"
+documentation = "https://docs.rs/glutin"
+edition = "2018"
+
+[package.metadata.docs.rs]
+features = ["icon_loading", "serde"]
+
+[features]
+icon_loading = ["winit/icon_loading"]
+serde = ["winit/serde"]
+
+[dependencies]
+lazy_static = "1.3"
+winit = "^0.19.1"
+
+[target.'cfg(target_os = "android")'.dependencies]
+android_glue = "0.2"
+glutin_egl_sys = { version = "0.1.3", path = "../glutin_egl_sys" }
+parking_lot = "0.7"
+
+[target.'cfg(target_os = "emscripten")'.dependencies]
+glutin_emscripten_sys = { version = "0.1.0", path = "../glutin_emscripten_sys" }
+
+[target.'cfg(any(target_os = "ios", target_os = "macos"))'.dependencies]
+objc = "0.2.6"
+glutin_gles2_sys = { version = "0.1.3", path = "../glutin_gles2_sys" }
+
+[target.'cfg(target_os = "macos")'.dependencies]
+cgl = "0.2"
+cocoa = "0.18"
+core-foundation = "0.6"
+core-graphics = "0.17"
+
+[target.'cfg(target_os = "windows")'.dependencies.winapi]
+version = "0.3"
+features = [
+    "winnt",
+    "winuser",
+    "wingdi",
+    "libloaderapi",
+]
+
+[target.'cfg(target_os = "windows")'.dependencies]
+libloading = "0.5"
+glutin_wgl_sys = { version = "0.1.3", path = "../glutin_wgl_sys" }
+glutin_egl_sys = { version = "0.1.3", path = "../glutin_egl_sys" }
+parking_lot = "0.7"
+
+[target.'cfg(any(target_os = "linux", target_os = "freebsd", target_os = "dragonfly", target_os = "netbsd", target_os = "openbsd"))'.dependencies]
+osmesa-sys = "0.1"
+wayland-client = { version = "0.21", features = ["egl", "dlopen"] }
+libloading = "0.5"
+glutin_egl_sys = { version = "0.1.3", path = "../glutin_egl_sys" }
+glutin_glx_sys = { version = "0.1.5", path = "../glutin_glx_sys" }
+derivative = "1.0"
+parking_lot = "0.7"

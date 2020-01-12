@@ -1,0 +1,22 @@
+[package]
+name = "android_base"
+version = "0.1.0"
+authors = ["OptimisticPeach"]
+edition = "2018"
+description = """
+A base for making android applications in rust with piston and glutin-window that simplifies android development
+"""
+repository = "https://github.com/OptimisticPeach/android_rs_base"
+readme = "./readme.md"
+keywords = ["android", "graphics", "base"]
+categories = ["games", "game-engines", "hardware-support", "os", "rendering"]
+license = "MIT"
+
+[dependencies]
+android_glue = {git = "https://github.com/rust-windowing/android-rs-glue"}
+piston = "0.49.0"
+piston2d-graphics = "0.35.0"
+pistoncore-glutin_window = {path = "../glutin_window"}
+piston2d-opengl_graphics = {path = "../opengl_graphics"}
+matrices = {path = "../matrices"}
+cgmath = "0.17.0"

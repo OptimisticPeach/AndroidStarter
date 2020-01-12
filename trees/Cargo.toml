@@ -1,0 +1,82 @@
+[package]
+name = "base"
+version = "0.1.0"
+authors = ["OptimisticPeach <optimistic.peach@yahoo.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+android_base = {path = "../android_rs_base/"}
+android_glue = {git = "https://github.com/rust-windowing/android-rs-glue"}
+piston = "0.49.0"
+piston2d-graphics = "0.35.0"
+piston2d-opengl_graphics = {path = "../opengl_graphics"}
+
+[patch.crates-io] # Winit uses an old version which is incompatible with the new cargo apk
+android_glue = {git = "https://github.com/rust-windowing/android-rs-glue"}
+
+# The following bit is so that code which panics in `main.rs` doesn't
+# end up in `__cargo_apk_main.tmp` which is created as a temporary
+# `main.rs` file by cargo apk.
+
+[lib]
+name = "source"
+path = "src/lib.rs"
+
+[[bin]]
+name = "Base"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+
+[profile.dev]
+lto = true
+
+[package.metadata.android]
+
+# The Java package name for your application.
+# Hyphens are converted to underscores.
+package_name = "com.optimistic_peach.base"
+
+# The user-friendly name for your app, as displayed in the applications menu.
+label = "Base"
+
+# Path to your application's res/ folder. See `examples/use_icon/res`.
+res = "res"
+
+# Virtual path your application's icon for any mipmap level. See `examples/use_icon/icon`.
+icon = "@mipmap/ic_launcher"
+
+# The target Android API level.
+# It defaults to 18 because this is the minimum supported by rustc.
+# (target_sdk_version and min_sdk_version default to the value of "android_version")
+android_version = 29
+target_sdk_version = 29
+min_sdk_version = 26
+
+assets = "assets"
+
+# Specifies the array of targets to build for.
+# Defaults to "arm-linux-androideabi".
+# Other possible targets include "aarch64-linux-android",
+# "armv7-linux-androideabi", "i686-linux-android" and "x86_64-linux-android".
+build_targets = [ "armv7-linux-androideabi" ] #, "aarch64-linux-android", "i686-linux-android", "x86_64-linux-android" ]
+
+# The maximum supported OpenGL ES version , as claimed by the manifest. Defaults to 2.0.
+# See https://developer.android.com/guide/topics/graphics/opengl.html#manifest
+opengles_version_major = 3
+opengles_version_minor = 2
+
+
+# Adds extra arbitrary XML attributes to the <application> tag in the manifest.
+# See https://developer.android.com/guide/topics/manifest/application-element.html
+[package.metadata.android.application_attributes]
+"android:hardwareAccelerated" = "true"
+
+# Adds extra arbitrary XML attributes to the <activity> tag in the manifest.
+# See https://developer.android.com/guide/topics/manifest/activity-element.html
+[package.metadata.android.activity_attributes]
+"android:screenOrientation" = "unspecified"
+"android:uiOptions" = "none"
